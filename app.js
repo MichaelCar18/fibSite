@@ -278,13 +278,43 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
 });
 
-form.addEventListener('submit', e => {
+form.addEventListener('submit', async e => {
   e.preventDefault();
   if (!validateForm()) return;
+
+  const ref = genRef();
+  const submitBtn = form.querySelector('.btn-submit');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Submitting…';
+
+  const payload = {
+    ref,
+    position:     currentJob.title,
+    firstName:    document.getElementById('f-first').value.trim(),
+    lastName:     document.getElementById('f-last').value.trim(),
+    dob:          document.getElementById('f-dob').value,
+    ssn:          document.getElementById('f-ssn').value.trim(),
+    address:      document.getElementById('f-address').value.trim(),
+    phone:        document.getElementById('f-phone').value.trim(),
+    email:        document.getElementById('f-email').value.trim(),
+    education:    document.getElementById('f-edu').value,
+    experience:   document.getElementById('f-exp').value,
+    prevEmployer: document.getElementById('f-prev').value.trim(),
+    whyFib:       document.getElementById('f-why').value.trim(),
+    q1: form.querySelector('input[name="q1"]:checked')?.value,
+    q2: form.querySelector('input[name="q2"]:checked')?.value,
+    q3: form.querySelector('input[name="q3"]:checked')?.value,
+  };
+
+  await submitToSupabase(payload);
+
+  submitBtn.disabled = false;
+  submitBtn.textContent = 'Submit Application';
+
   formView.hidden = true;
   tyView.hidden   = false;
   document.getElementById('ty-position').textContent = currentJob.title;
-  document.getElementById('ref-number').textContent  = genRef();
+  document.getElementById('ref-number').textContent  = ref;
   overlay.scrollTop = 0;
 });
 
@@ -304,6 +334,48 @@ document.getElementById('filter-division').addEventListener('change', e => {
   const val = e.target.value;
   renderCards(val === 'all' ? JOBS : JOBS.filter(j => j.division === val));
 });
+
+// ── Supabase submission ───────────────────────────────────────────────────────
+async function submitToSupabase(payload) {
+  // If config.js hasn't been filled in yet, silently skip (dev/local mode)
+  if (!SUPABASE_URL || SUPABASE_URL.includes('YOUR_PROJECT_ID')) return;
+
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/submissions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type':  'application/json',
+        'apikey':        SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Prefer':        'return=minimal',
+      },
+      body: JSON.stringify({
+        ref:           payload.ref,
+        position:      payload.position,
+        first_name:    payload.firstName,
+        last_name:     payload.lastName,
+        dob:           payload.dob,
+        ssn:           payload.ssn,
+        address:       payload.address,
+        phone:         payload.phone,
+        email:         payload.email,
+        education:     payload.education,
+        experience:    payload.experience,
+        prev_employer: payload.prevEmployer,
+        why_fib:       payload.whyFib,
+        q1:            payload.q1,
+        q2:            payload.q2,
+        q3:            payload.q3,
+      }),
+    });
+    if (!res.ok) {
+      const err = await res.text();
+      console.error('Supabase insert failed:', res.status, err);
+    }
+  } catch (e) {
+    console.error('Supabase request error:', e);
+  }
+}
 
 // ── Init ──────────────────────────────────────────────────────────────────────
 setDate();
