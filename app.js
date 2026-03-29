@@ -108,21 +108,87 @@ const JOBS = [
   }
 ];
 
-// ── Utility ──────────────────────────────────────────────────────────────────
+// ── Router ────────────────────────────────────────────────────────────────────
+const VIEWS = ['home', 'about', 'benefits', 'contact'];
+
+const HASH_MAP = {
+  '':          'home',
+  '#listings': 'home',
+  '#home':     'home',
+  '#about':    'about',
+  '#benefits': 'benefits',
+  '#contact':  'contact',
+};
+
+function getViewFromHash() {
+  return HASH_MAP[window.location.hash] || 'home';
+}
+
+function navigate(view, pushState = true) {
+  if (!VIEWS.includes(view)) view = 'home';
+
+  // Update views
+  VIEWS.forEach(v => {
+    const el = document.getElementById('view-' + v);
+    if (el) el.hidden = (v !== view);
+    if (v === view && el) {
+      el.classList.remove('view-enter');
+      // force reflow for re-trigger
+      void el.offsetWidth;
+      el.classList.add('view-enter');
+    }
+  });
+
+  // Update nav active state
+  document.querySelectorAll('.top-nav a, .footer-links a').forEach(a => {
+    const linkView = a.dataset.view;
+    a.classList.toggle('active', linkView === view);
+  });
+
+  // Update hash without triggering hashchange loop
+  const hashMap = { home: '#listings', about: '#about', benefits: '#benefits', contact: '#contact' };
+  if (pushState) {
+    history.pushState({ view }, '', hashMap[view] || '#listings');
+  }
+
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+// Handle nav clicks (header, footer, hero CTAs)
+document.addEventListener('click', e => {
+  const link = e.target.closest('[data-view]');
+  if (!link) return;
+  e.preventDefault();
+  navigate(link.dataset.view);
+});
+
+// Logo click → home
+document.querySelector('.agency-logo').addEventListener('click', () => navigate('home'));
+
+// Browser back/forward
+window.addEventListener('popstate', e => {
+  navigate(e.state?.view || getViewFromHash(), false);
+});
+
+// Initial load from URL
+navigate(getViewFromHash(), false);
+
+// ── Utility ───────────────────────────────────────────────────────────────────
 function genRef() {
   return 'FIB-' + Date.now().toString(36).toUpperCase() + '-' + Math.floor(Math.random() * 9000 + 1000);
 }
 
 function setDate() {
   const d = new Date();
-  document.getElementById('update-date').textContent = d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  const el = document.getElementById('update-date');
+  if (el) el.textContent = d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
-// ── Render Cards ─────────────────────────────────────────────────────────────
+// ── Render Cards ──────────────────────────────────────────────────────────────
 function renderCards(jobs) {
   const grid = document.getElementById('job-grid');
-  grid.innerHTML = '';
   document.getElementById('job-count').textContent = jobs.length;
+  grid.innerHTML = '';
 
   if (jobs.length === 0) {
     grid.innerHTML = '<p style="font-family:Arial,sans-serif;color:#666;padding:1rem 0;">No positions match the selected filter.</p>';
@@ -151,11 +217,11 @@ function renderCards(jobs) {
 }
 
 // ── Modal ─────────────────────────────────────────────────────────────────────
-const overlay   = document.getElementById('modal-overlay');
-const formView  = document.getElementById('form-view');
-const tyView    = document.getElementById('thankyou-view');
-const form      = document.getElementById('app-form');
-let currentJob  = null;
+const overlay  = document.getElementById('modal-overlay');
+const formView = document.getElementById('form-view');
+const tyView   = document.getElementById('thankyou-view');
+const form     = document.getElementById('app-form');
+let currentJob = null;
 
 function openModal(job) {
   currentJob = job;
@@ -168,7 +234,6 @@ function openModal(job) {
   overlay.classList.add('open');
   overlay.removeAttribute('aria-hidden');
   document.body.style.overflow = 'hidden';
-  // scroll modal to top
   overlay.scrollTop = 0;
 }
 
@@ -181,38 +246,25 @@ function closeModal() {
 
 function clearValidation() {
   overlay.querySelectorAll('.invalid').forEach(el => el.classList.remove('invalid'));
+  overlay.querySelectorAll('.disclosure-item').forEach(el => el.style.borderColor = '');
 }
 
 function validateForm() {
   let valid = true;
-  const required = form.querySelectorAll('[required]');
-  required.forEach(el => {
-    if (el.type === 'radio') return; // handled separately
-    if (!el.value.trim()) {
-      el.classList.add('invalid');
-      valid = false;
-    } else {
-      el.classList.remove('invalid');
-    }
+  form.querySelectorAll('[required]').forEach(el => {
+    if (el.type === 'radio') return;
+    if (!el.value.trim()) { el.classList.add('invalid'); valid = false; }
+    else el.classList.remove('invalid');
   });
-
-  // Check radio groups
   ['q1', 'q2', 'q3'].forEach(name => {
     const group = form.querySelectorAll(`input[name="${name}"]`);
     const checked = Array.from(group).some(r => r.checked);
-    if (!checked) {
-      valid = false;
-      // visually flag the disclosure item
-      group[0].closest('.disclosure-item').style.borderColor = 'var(--red)';
-    } else {
-      group[0].closest('.disclosure-item').style.borderColor = '';
-    }
+    if (!checked) { valid = false; group[0].closest('.disclosure-item').style.borderColor = 'var(--red)'; }
+    else group[0].closest('.disclosure-item').style.borderColor = '';
   });
-
   return valid;
 }
 
-// Apply button clicks (delegated)
 document.getElementById('job-grid').addEventListener('click', e => {
   if (e.target.matches('.apply-btn')) {
     const job = JOBS.find(j => j.id === e.target.dataset.id);
@@ -221,11 +273,7 @@ document.getElementById('job-grid').addEventListener('click', e => {
 });
 
 document.getElementById('modal-close').addEventListener('click', closeModal);
-
-overlay.addEventListener('click', e => {
-  if (e.target === overlay) closeModal();
-});
-
+overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
 });
@@ -233,8 +281,6 @@ document.addEventListener('keydown', e => {
 form.addEventListener('submit', e => {
   e.preventDefault();
   if (!validateForm()) return;
-
-  // Show thank-you
   formView.hidden = true;
   tyView.hidden   = false;
   document.getElementById('ty-position').textContent = currentJob.title;
@@ -242,20 +288,21 @@ form.addEventListener('submit', e => {
   overlay.scrollTop = 0;
 });
 
-document.getElementById('ty-close').addEventListener('click', closeModal);
+document.getElementById('ty-close').addEventListener('click', () => {
+  closeModal();
+  navigate('home');
+});
+
+form.addEventListener('input', e => {
+  if (e.target.classList.contains('invalid') && e.target.value.trim()) {
+    e.target.classList.remove('invalid');
+  }
+});
 
 // ── Filter ────────────────────────────────────────────────────────────────────
 document.getElementById('filter-division').addEventListener('change', e => {
   const val = e.target.value;
-  const filtered = val === 'all' ? JOBS : JOBS.filter(j => j.division === val);
-  renderCards(filtered);
-});
-
-// ── Live validation: clear invalid on input ───────────────────────────────────
-form.addEventListener('input', e => {
-  if (e.target.classList.contains('invalid')) {
-    if (e.target.value.trim()) e.target.classList.remove('invalid');
-  }
+  renderCards(val === 'all' ? JOBS : JOBS.filter(j => j.division === val));
 });
 
 // ── Init ──────────────────────────────────────────────────────────────────────

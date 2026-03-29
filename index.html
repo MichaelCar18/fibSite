@@ -19,10 +19,10 @@
         </div>
       </div>
       <nav class="top-nav">
-        <a href="#">About FIB</a>
-        <a href="#">Benefits</a>
-        <a href="#listings" class="active">Open Positions</a>
-        <a href="#">Contact</a>
+        <a href="#about" data-view="about">About FIB</a>
+        <a href="#benefits" data-view="benefits">Benefits</a>
+        <a href="#listings" data-view="home" class="active">Open Positions</a>
+        <a href="#contact" data-view="contact">Contact</a>
       </nav>
     </div>
     <div class="header-bar">
@@ -31,51 +31,388 @@
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-inner">
-      <h1>Serve. Protect. Investigate.</h1>
-      <p>Join the Federal Investigation Bureau and help maintain order across San Andreas. We are actively recruiting dedicated professionals committed to justice, discretion, and an ability to not ask too many questions.</p>
-      <a href="#listings" class="btn-primary">View Open Positions</a>
-    </div>
-  </section>
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- VIEW: HOME                                                             -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <div id="view-home">
+    <section class="hero">
+      <div class="hero-inner">
+        <h1>Serve. Protect. Investigate.</h1>
+        <p>Join the Federal Investigation Bureau and help maintain order across San Andreas. We are actively recruiting dedicated professionals committed to justice, discretion, and an ability to not ask too many questions.</p>
+        <a href="#listings" class="btn-primary" data-view="home">View Open Positions</a>
+      </div>
+    </section>
 
-  <!-- Notice Banner -->
-  <div class="notice-banner">
-    <strong>NOTICE:</strong> Background checks are conducted on all applicants. Previous involvement with street gangs, heist crews, or the Lost MC may result in automatic disqualification <em>or</em> immediate recruitment, depending on skill set.
+    <div class="notice-banner">
+      <strong>NOTICE:</strong> Background checks are conducted on all applicants. Previous involvement with street gangs, heist crews, or the Lost MC may result in automatic disqualification <em>or</em> immediate recruitment, depending on skill set.
+    </div>
+
+    <main class="main-content" id="listings">
+      <div class="section-header">
+        <h2>Current Job Openings</h2>
+        <p>Displaying <strong id="job-count">8</strong> open positions. Last updated: <span id="update-date"></span></p>
+      </div>
+
+      <div class="filters">
+        <label>Filter by Division:
+          <select id="filter-division">
+            <option value="all">All Divisions</option>
+            <option value="field">Field Operations</option>
+            <option value="intel">Intelligence</option>
+            <option value="finance">Financial Crimes</option>
+            <option value="tech">Technology</option>
+            <option value="admin">Administration</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="job-grid" id="job-grid"></div>
+    </main>
   </div>
 
-  <!-- Job Listings -->
-  <main class="main-content" id="listings">
-    <div class="section-header">
-      <h2>Current Job Openings</h2>
-      <p>Displaying <strong id="job-count">8</strong> open positions. Last updated: <span id="update-date"></span></p>
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- VIEW: ABOUT                                                            -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <div id="view-about" hidden>
+    <div class="page-hero page-hero--about">
+      <div class="page-hero-inner">
+        <p class="page-eyebrow">About the Bureau</p>
+        <h1>Who We Are</h1>
+        <p>Protecting the citizens of San Andreas since 1903. Mostly.</p>
+      </div>
     </div>
 
-    <div class="filters">
-      <label>Filter by Division:
-        <select id="filter-division">
-          <option value="all">All Divisions</option>
-          <option value="field">Field Operations</option>
-          <option value="intel">Intelligence</option>
-          <option value="finance">Financial Crimes</option>
-          <option value="tech">Technology</option>
-          <option value="admin">Administration</option>
-        </select>
-      </label>
+    <main class="main-content">
+
+      <!-- Mission block -->
+      <section class="about-mission">
+        <div class="about-mission-text">
+          <h2>Our Mission</h2>
+          <p>The Federal Investigation Bureau is the domestic intelligence and security service of San Andreas, and its principal federal law enforcement agency. The FIB's primary functions are national security, counterterrorism, counterintelligence, cybercrime, public corruption, organized crime, and ensuring that certain events that occurred in Paleto Bay are never, under any circumstances, discussed publicly.</p>
+          <p>We operate with a commitment to the rule of law, the protection of civil liberties, and a strict need-to-know information policy that applies to approximately 94% of our own staff.</p>
+          <p>The FIB maintains field offices in Los Santos, Blaine County, and an undisclosed location believed to be somewhere beneath the Maze Bank Arena parking structure.</p>
+        </div>
+        <div class="about-mission-seal">
+          <div class="fib-seal-large-display">
+            <div class="seal-ring">
+              <div class="seal-inner">
+                <span class="seal-text-top">FEDERAL INVESTIGATION BUREAU</span>
+                <div class="seal-acronym">FIB</div>
+                <span class="seal-text-bottom">SAN ANDREAS · EST. 1903</span>
+              </div>
+            </div>
+          </div>
+          <p class="seal-caption">Fidelity · Bravery · Integrity<br /><em>(Two of the three are non-negotiable)</em></p>
+        </div>
+      </section>
+
+      <!-- Stats bar -->
+      <div class="stats-bar">
+        <div class="stat">
+          <span class="stat-num">4,200+</span>
+          <span class="stat-label">Special Agents</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">12</span>
+          <span class="stat-label">Field Offices</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">$2.1B</span>
+          <span class="stat-label">Annual Budget<br /><small>(Disclosed)</small></span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">██████</span>
+          <span class="stat-label">Classified Operations<br /><small>(FY 2024)</small></span>
+        </div>
+      </div>
+
+      <!-- Photo gallery -->
+      <section class="about-gallery">
+        <h2>Life at the Bureau</h2>
+        <p class="section-sub">A glimpse into the daily operations of the FIB — within the bounds of what has been approved for public release.</p>
+
+        <div class="gallery-grid">
+
+          <div class="gallery-card">
+            <div class="gallery-img gallery-img--ops">
+              <div class="gallery-img-inner">
+                <span class="img-icon">🚁</span>
+                <div class="img-tape img-tape--tl"></div>
+              </div>
+              <div class="classified-stamp">APPROVED</div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Air Support Division</strong>
+              <p>FIB helicopters conduct routine surveillance over the Los Santos metropolitan area. All footage is retained for a minimum of 30 years or until legally challenged, whichever is longer.</p>
+            </div>
+          </div>
+
+          <div class="gallery-card">
+            <div class="gallery-img gallery-img--training">
+              <div class="gallery-img-inner">
+                <span class="img-icon">🎯</span>
+                <div class="img-tape img-tape--tr"></div>
+              </div>
+              <div class="classified-stamp classified-stamp--redacted">REDACTED</div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Tactical Training Facility</strong>
+              <p>Agents undergo rigorous firearms qualification at our [LOCATION REDACTED] training campus. Minimum qualification score is 85%. Agents scoring below 85% are assigned to [ROLE REDACTED].</p>
+            </div>
+          </div>
+
+          <div class="gallery-card">
+            <div class="gallery-img gallery-img--office">
+              <div class="gallery-img-inner">
+                <span class="img-icon">🏛</span>
+                <div class="img-tape img-tape--tl"></div>
+              </div>
+              <div class="classified-stamp">APPROVED</div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Los Santos Field Office</strong>
+              <p>Our main field office in downtown Los Santos houses over 600 personnel across 14 floors. Floors 9 through 14 do not officially exist. The cafeteria on floor 4 has been rated "Acceptable" by the San Andreas Health Department three years running.</p>
+            </div>
+          </div>
+
+          <div class="gallery-card">
+            <div class="gallery-img gallery-img--team">
+              <div class="gallery-img-inner">
+                <span class="img-icon">👥</span>
+                <div class="img-tape img-tape--tr"></div>
+              </div>
+              <div class="classified-stamp">APPROVED</div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Joint Task Force Operations</strong>
+              <p>FIB agents regularly partner with LSPD, NOOSE, and select civilian contractors whose prior criminal histories have been deemed "an operational asset." Pictured: a standard briefing. Identities withheld at agents' request.</p>
+            </div>
+          </div>
+
+          <div class="gallery-card">
+            <div class="gallery-img gallery-img--tech">
+              <div class="gallery-img-inner">
+                <span class="img-icon">💻</span>
+                <div class="img-tape img-tape--tl"></div>
+              </div>
+              <div class="classified-stamp classified-stamp--redacted">CLASSIFIED</div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Cyber Operations Center</strong>
+              <p>The FIB Cyber Division monitors digital threats across San Andreas 24 hours a day. The nature of operations conducted here is classified. The coffee machine on this floor costs $14,000 and was approved through a discretionary procurement exception.</p>
+            </div>
+          </div>
+
+          <div class="gallery-card">
+            <div class="gallery-img gallery-img--vehicle">
+              <div class="gallery-img-inner">
+                <span class="img-icon">🚗</span>
+                <div class="img-tape img-tape--tr"></div>
+              </div>
+              <div class="classified-stamp">APPROVED</div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Fleet Services</strong>
+              <p>FIB agents are issued unmarked black sedans with tinted windows. All vehicles are equipped with standard surveillance equipment, emergency lighting, and a pine-scented air freshener that approximately half of our agents have filed complaints about.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Leadership -->
+      <section class="about-leadership">
+        <h2>Bureau Leadership</h2>
+        <p class="section-sub">The FIB is led by a team of experienced public servants dedicated to the mission of the Bureau.</p>
+        <div class="leadership-grid">
+
+          <div class="leader-card">
+            <div class="leader-photo leader-photo--1">
+              <span>🕵️</span>
+              <div class="classified-stamp classified-stamp--sm">APPROVED</div>
+            </div>
+            <div class="leader-info">
+              <strong>Director [NAME WITHHELD]</strong>
+              <span>Executive Director, FIB</span>
+              <p>Appointed by the Governor of San Andreas. Previously served in roles that remain classified under Executive Order 1174-B. Holds seven commendations, three of which can be discussed in public.</p>
+            </div>
+          </div>
+
+          <div class="leader-card">
+            <div class="leader-photo leader-photo--2">
+              <span>🕵️‍♀️</span>
+              <div class="classified-stamp classified-stamp--sm">APPROVED</div>
+            </div>
+            <div class="leader-info">
+              <strong>Deputy Director S. Haines</strong>
+              <span>Deputy Director, Operations</span>
+              <p>Oversees all field operations across San Andreas. Joined the FIB after a distinguished career in law enforcement that she describes as "complicated." Recipient of the San Andreas Medal of Valor, 2019.</p>
+            </div>
+          </div>
+
+          <div class="leader-card">
+            <div class="leader-photo leader-photo--3">
+              <span>👔</span>
+              <div class="classified-stamp classified-stamp--sm classified-stamp--redacted">REDACTED</div>
+            </div>
+            <div class="leader-info">
+              <strong>[REDACTED]</strong>
+              <span>Assistant Director, Special Projects</span>
+              <p>Leads the Bureau's Special Projects division. Official biography unavailable. Presence in this organizational chart is subject to ongoing litigation.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- VIEW: BENEFITS                                                         -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <div id="view-benefits" hidden>
+    <div class="page-hero page-hero--benefits">
+      <div class="page-hero-inner">
+        <p class="page-eyebrow">Total Compensation Package</p>
+        <h1>Why Work for the FIB?</h1>
+        <p>Outstanding benefits. Competitive pay. A security clearance that makes you feel important at parties.</p>
+      </div>
     </div>
 
-    <div class="job-grid" id="job-grid">
-      <!-- Jobs injected by JS -->
-    </div>
-  </main>
+    <main class="main-content">
 
-  <!-- Application Modal -->
+      <div class="benefits-intro">
+        <p>The Federal Investigation Bureau offers one of the most comprehensive employment packages in San Andreas state government — including health coverage, retirement planning, and the peace of mind that comes with knowing exactly where you stand in the chain of command (roughly).</p>
+      </div>
+
+      <!-- Benefits grid -->
+      <div class="benefits-grid">
+
+        <div class="benefit-card">
+          <div class="benefit-icon">🏥</div>
+          <h3>Health Insurance</h3>
+          <p>Comprehensive medical, dental, and vision coverage for you and your immediate family. FIB-tier health plans cover all injuries sustained in the line of duty, including <strong>gunshot wounds, vehicle collisions, helicopter crashes, and exposure to unidentified chemical agents</strong>. Psychological services available on request; mandatory after certain assignments.</p>
+          <div class="benefit-note">Note: Coverage does not apply to injuries sustained while acting outside your chain of command. You know who you are.</div>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">🏖️</div>
+          <h3>Paid Time Off</h3>
+          <p>New agents receive <strong>13 days of annual leave</strong> and <strong>13 days of sick leave</strong> per year. Senior agents receive up to 26 days. Unused leave may be carried over or converted to cash upon retirement. <em>Note: Leave requests during active operations, federal holidays, or at any time determined by your supervisor to be "inconvenient" may be denied without appeal.</em></p>
+          <div class="benefit-note">Certain assignments do not permit leave accrual. You will be informed retroactively.</div>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">💰</div>
+          <h3>Retirement & Pension</h3>
+          <p>FIB employees participate in the <strong>San Andreas Federal Employees Retirement System (SAFERS)</strong>, providing a defined-benefit pension after 20 years of service. Agents in high-risk roles may retire at age 50. A <strong>Thrift Savings Plan (TSP)</strong> with government matching up to 5% is also available. Pension values are not affected by any classified operations you may have participated in. Probably.</p>
+          <div class="benefit-note">Agents involved in Operation [REDACTED] should contact HR directly regarding their retirement status.</div>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">🎓</div>
+          <h3>Education & Training</h3>
+          <p>All new agents attend the <strong>FIB National Academy</strong> in [LOCATION CLASSIFIED], a 20-week residential training program covering firearms, surveillance, legal authority, psychological resilience, and a mandatory one-hour module on proper use of the FIB photocopier. Tuition reimbursement is available for job-related graduate coursework. The Bureau will not reimburse degrees in philosophy, art history, or "anything that makes you ask questions."</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">🚗</div>
+          <h3>Government Vehicle Access</h3>
+          <p>Field agents are issued a <strong>government vehicle</strong> for official use. Vehicles are fully maintained, fueled, and equipped with tactical hardware at no cost to the employee. Agents are reminded that government vehicles are not to be used for personal errands, although we acknowledge this policy has historically been observed inconsistently. <strong>Any vehicle damage</strong> attributable to a pursuit, ambush, or explosive device will be written off. Parallel parking incidents will not.</p>
+          <div class="benefit-note">FIB vehicles are equipped with tracking devices. This is for your safety.</div>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">🔒</div>
+          <h3>Security Clearance</h3>
+          <p>All FIB employees receive a minimum <strong>Confidential</strong> clearance upon hire, with most roles requiring <strong>Secret</strong> or <strong>Top Secret / SCI</strong> access. A security clearance is a significant professional asset — it demonstrates trustworthiness, opens doors across government and the private sector, and dramatically improves your performance at trivia nights. <em>Clearances may be suspended or revoked at any time for any reason, including reasons that cannot be disclosed to you.</em></p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">📍</div>
+          <h3>Relocation Assistance</h3>
+          <p>New hires relocating to accept a position receive a <strong>one-time relocation stipend</strong> of up to $7,500. Agents reassigned involuntarily — such as those transferred following a high-profile incident, a congressional inquiry, or what HR refers to internally as a "reassignment of mutual benefit" — receive a <strong>standard moving allowance</strong> and 30 days to vacate their current residence. A new identity is available upon request for qualifying reassignments, subject to availability.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">🧠</div>
+          <h3>Employee Assistance Program</h3>
+          <p>The FIB's <strong>Employee Assistance Program (EAP)</strong> provides free, confidential counseling services for all staff dealing with stress, anxiety, relationship issues, or the psychological aftermath of witnessing things that cannot be described in this document. Up to <strong>8 sessions per year</strong> are covered at no cost. All EAP sessions are confidential and will not be shared with supervisors. <em>Sessions may be reviewed for counterintelligence purposes by a separate office that is not HR.</em></p>
+          <div class="benefit-note">Confidentiality is maintained within the limits of the law and internal security protocol SA-FIB-7712.</div>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">🏆</div>
+          <h3>Awards & Recognition</h3>
+          <p>The FIB recognizes exceptional performance through a robust awards program including the <strong>Director's Award for Excellence</strong>, the <strong>San Andreas Medal of Valor</strong>, and the rarely-awarded <strong>Classified Commendation</strong> — which is real, cannot be displayed publicly, and cannot be listed on a resume, but looks very impressive in a sealed envelope that you are not allowed to open. Length-of-service pins are awarded at 5, 10, 20, and 30 years. The 30-year pin comes with a handshake from the Deputy Director and the sincere hope that you have not kept a journal.</p>
+        </div>
+
+        <div class="benefit-card benefit-card--highlight">
+          <div class="benefit-icon">⭐</div>
+          <h3>Plausible Deniability</h3>
+          <p>Perhaps the Bureau's most valued benefit. <strong>FIB employment provides institutional cover for a broad range of activities</strong> that, in a civilian context, would raise significant legal and ethical questions. Agents operating within the scope of authorized operations enjoy robust legal representation, indemnification from personal liability, and a chain of command willing to describe your actions to the press as "consistent with Bureau policy" for as long as is operationally convenient. <em>Coverage applies to authorized operations only. Unauthorized operations are your problem.</em></p>
+          <div class="benefit-note">The Bureau reserves the right to redefine what constitutes an "authorized operation" retroactively.</div>
+        </div>
+
+      </div>
+
+      <!-- CTA -->
+      <div class="benefits-cta">
+        <h2>Ready to Join?</h2>
+        <p>Browse our current openings and submit your application today. The FIB is always looking for talented, discreet, and highly adaptable individuals.</p>
+        <a href="#listings" class="btn-primary" data-view="home">View Open Positions</a>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- VIEW: CONTACT                                                          -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <div id="view-contact" hidden>
+    <div class="page-hero page-hero--contact">
+      <div class="page-hero-inner">
+        <p class="page-eyebrow">Get in Touch</p>
+        <h1>Contact Us</h1>
+        <p>We are always listening. Literally.</p>
+      </div>
+    </div>
+    <main class="main-content contact-main">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h2>FIB Human Resources Division</h2>
+          <p>For general inquiries related to employment, application status, or benefits, please use the contact information below. For matters related to ongoing investigations, please do not contact us — we will contact you.</p>
+          <ul class="contact-list">
+            <li><strong>Mailing Address:</strong><br />FIB Human Resources Division<br />P.O. Box 1147<br />Los Santos, SA 90010</li>
+            <li><strong>Phone:</strong><br />(718) 217-1585<br /><span class="contact-note">Lines are monitored and recorded for quality assurance and evidence preservation purposes.</span></li>
+            <li><strong>Email:</strong><br />careers@fib.gov.sa<br /><span class="contact-note">Do not include sensitive personal information in unsecured email. We already have it.</span></li>
+            <li><strong>Office Hours:</strong><br />Monday – Friday, 8:00 AM – 4:30 PM<br /><span class="contact-note">The office is closed on federal holidays and during any active crisis incident, which is more often than you might expect.</span></li>
+          </ul>
+        </div>
+        <div class="contact-notice">
+          <div class="notice-box">
+            <h3>⚠ Before You Contact Us</h3>
+            <ul>
+              <li>Application status inquiries are only accepted after 30 business days have elapsed since submission.</li>
+              <li>We do not confirm or deny the existence of specific investigations.</li>
+              <li>If you are contacting us to report a crime, please call LSPD at (555) LSPD-911. If the crime involves LSPD, call us.</li>
+              <li>If you believe you are under surveillance, you probably are. This is not a matter HR can assist with.</li>
+              <li>Media inquiries should be directed to the FIB Office of Public Affairs, who will decline to comment.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- APPLICATION MODAL                                                      -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
   <div class="modal-overlay" id="modal-overlay" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
       <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
 
-      <!-- Application Form -->
       <div id="form-view">
         <div class="modal-header">
           <div class="fib-seal small">FIB</div>
@@ -191,7 +528,6 @@
         </form>
       </div>
 
-      <!-- Thank You View -->
       <div id="thankyou-view" hidden>
         <div class="thankyou">
           <div class="fib-seal large">FIB</div>
@@ -218,13 +554,14 @@
         </div>
       </div>
       <div class="footer-links">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Accessibility</a>
+        <a href="#" data-view="about">About FIB</a>
+        <a href="#" data-view="benefits">Benefits</a>
+        <a href="#listings" data-view="home">Open Positions</a>
+        <a href="#" data-view="contact">Contact</a>
         <a href="#">FOIA Requests</a>
-        <a href="#">No-FEAR Act</a>
         <a href="#">Inspector General</a>
       </div>
-      <p class="footer-legal">The FIB is an Equal Opportunity Employer. We do not discriminate on the basis of race, color, national origin, sex, disability, age, or whether you once helped dismantle our operations in Paleto Bay.</p>
+      <p class="footer-legal">The FIB is an Equal Opportunity Employer. We do not discriminate on the basis of race, color, national origin, sex, disability, age, or whether you once helped dismantle our operations in Paleto Bay. This is a satirical website inspired by Grand Theft Auto V and is not affiliated with any real government agency.</p>
     </div>
   </footer>
 
