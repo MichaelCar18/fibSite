@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FIB Careers | Federal Investigation Bureau</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="agency-logo">
+        <div class="fib-seal">FIB</div>
+        <div class="agency-name">
+          <span class="agency-title">Federal Investigation Bureau</span>
+          <span class="agency-sub">San Andreas Field Office — Human Resources Division</span>
+        </div>
+      </div>
+      <nav class="top-nav">
+        <a href="#">About FIB</a>
+        <a href="#">Benefits</a>
+        <a href="#listings" class="active">Open Positions</a>
+        <a href="#">Contact</a>
+      </nav>
+    </div>
+    <div class="header-bar">
+      <span>An Official Website of the State of San Andreas</span>
+      <span class="secure-badge">&#128274; Secure .gov Site</span>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Serve. Protect. Investigate.</h1>
+      <p>Join the Federal Investigation Bureau and help maintain order across San Andreas. We are actively recruiting dedicated professionals committed to justice, discretion, and an ability to not ask too many questions.</p>
+      <a href="#listings" class="btn-primary">View Open Positions</a>
+    </div>
+  </section>
+
+  <!-- Notice Banner -->
+  <div class="notice-banner">
+    <strong>NOTICE:</strong> Background checks are conducted on all applicants. Previous involvement with street gangs, heist crews, or the Lost MC may result in automatic disqualification <em>or</em> immediate recruitment, depending on skill set.
+  </div>
+
+  <!-- Job Listings -->
+  <main class="main-content" id="listings">
+    <div class="section-header">
+      <h2>Current Job Openings</h2>
+      <p>Displaying <strong id="job-count">8</strong> open positions. Last updated: <span id="update-date"></span></p>
+    </div>
+
+    <div class="filters">
+      <label>Filter by Division:
+        <select id="filter-division">
+          <option value="all">All Divisions</option>
+          <option value="field">Field Operations</option>
+          <option value="intel">Intelligence</option>
+          <option value="finance">Financial Crimes</option>
+          <option value="tech">Technology</option>
+          <option value="admin">Administration</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="job-grid" id="job-grid">
+      <!-- Jobs injected by JS -->
+    </div>
+  </main>
+
+  <!-- Application Modal -->
+  <div class="modal-overlay" id="modal-overlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+
+      <!-- Application Form -->
+      <div id="form-view">
+        <div class="modal-header">
+          <div class="fib-seal small">FIB</div>
+          <div>
+            <p class="modal-label">Federal Investigation Bureau — Application for Employment</p>
+            <h2 id="modal-title">Position Title</h2>
+            <p id="modal-series" class="modal-series"></p>
+          </div>
+        </div>
+
+        <form id="app-form" novalidate>
+          <fieldset>
+            <legend>Personal Information</legend>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="f-first">First Name <span class="req">*</span></label>
+                <input type="text" id="f-first" required />
+              </div>
+              <div class="form-group">
+                <label for="f-last">Last Name <span class="req">*</span></label>
+                <input type="text" id="f-last" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="f-dob">Date of Birth <span class="req">*</span></label>
+                <input type="date" id="f-dob" required />
+              </div>
+              <div class="form-group">
+                <label for="f-ssn">Social Security Number <span class="req">*</span></label>
+                <input type="text" id="f-ssn" placeholder="XXX-XX-XXXX" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group full">
+                <label for="f-address">Current Address <span class="req">*</span></label>
+                <input type="text" id="f-address" placeholder="Street, City, State" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="f-phone">Phone Number <span class="req">*</span></label>
+                <input type="tel" id="f-phone" placeholder="(555) 000-0000" required />
+              </div>
+              <div class="form-group">
+                <label for="f-email">Email Address <span class="req">*</span></label>
+                <input type="email" id="f-email" placeholder="you@example.com" required />
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Background & Qualifications</legend>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="f-edu">Highest Education Level <span class="req">*</span></label>
+                <select id="f-edu" required>
+                  <option value="">— Select —</option>
+                  <option>High School Diploma / GED</option>
+                  <option>Some College</option>
+                  <option>Associate's Degree</option>
+                  <option>Bachelor's Degree</option>
+                  <option>Master's Degree</option>
+                  <option>Doctoral Degree</option>
+                  <option>Degree from Maze Bank Arena Community College Night School</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="f-exp">Years of Relevant Experience</label>
+                <input type="number" id="f-exp" min="0" max="40" placeholder="0" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group full">
+                <label for="f-prev">Previous Employer(s)</label>
+                <input type="text" id="f-prev" placeholder="e.g. LSPD, Merryweather Security, Trevor Philips Industries" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group full">
+                <label for="f-why">Why do you want to work for the FIB? <span class="req">*</span></label>
+                <textarea id="f-why" rows="4" placeholder="Describe your motivation. Mention of offshore accounts, witness protection, or access to classified files will not be viewed favorably." required></textarea>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Disclosure Questions</legend>
+            <div class="disclosure-item">
+              <p>Have you ever been arrested, charged, or convicted of a felony?</p>
+              <label><input type="radio" name="q1" value="no" required /> No</label>
+              <label><input type="radio" name="q1" value="yes" /> Yes</label>
+              <label><input type="radio" name="q1" value="depends" /> It depends on whether the charges stuck</label>
+            </div>
+            <div class="disclosure-item">
+              <p>Are you currently under investigation by any federal, state, or local law enforcement agency?</p>
+              <label><input type="radio" name="q2" value="no" required /> No</label>
+              <label><input type="radio" name="q2" value="yes" /> Yes</label>
+              <label><input type="radio" name="q2" value="unsure" /> I am not aware of any active investigations (to my knowledge)</label>
+            </div>
+            <div class="disclosure-item">
+              <p>Do you have any connections to criminal organizations, cartels, or the IAA?</p>
+              <label><input type="radio" name="q3" value="no" required /> No</label>
+              <label><input type="radio" name="q3" value="yes" /> Yes</label>
+              <label><input type="radio" name="q3" value="iaa" /> I work for the IAA, but only on a contractual basis</label>
+            </div>
+          </fieldset>
+
+          <div class="form-footer">
+            <p class="legal-note">By submitting this application, you certify that all information provided is accurate to the best of your knowledge. The FIB reserves the right to conduct surveillance, background checks, phone taps, and light psychological profiling. Submission of this form does not guarantee an interview or clearance.</p>
+            <button type="submit" class="btn-primary btn-submit">Submit Application</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Thank You View -->
+      <div id="thankyou-view" hidden>
+        <div class="thankyou">
+          <div class="fib-seal large">FIB</div>
+          <h2>Application Received</h2>
+          <p class="thankyou-sub">Reference No.: <strong id="ref-number"></strong></p>
+          <p>Thank you for your interest in joining the <strong>Federal Investigation Bureau</strong>. Your application for <strong id="ty-position"></strong> has been submitted successfully.</p>
+          <p>A field agent will review your materials within <strong>5–7 business days</strong>, assuming no conflicts of interest are identified. You may be contacted for a follow-up interview, polygraph examination, or an entirely unrelated matter.</p>
+          <p class="ty-note">Please do not attempt to contact our office regarding your application status. We will find you.</p>
+          <button class="btn-secondary" id="ty-close">Return to Listings</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <div class="fib-seal small">FIB</div>
+        <div>
+          <strong>Federal Investigation Bureau</strong><br />
+          San Andreas Field Office<br />
+          Human Resources Division
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Accessibility</a>
+        <a href="#">FOIA Requests</a>
+        <a href="#">No-FEAR Act</a>
+        <a href="#">Inspector General</a>
+      </div>
+      <p class="footer-legal">The FIB is an Equal Opportunity Employer. We do not discriminate on the basis of race, color, national origin, sex, disability, age, or whether you once helped dismantle our operations in Paleto Bay.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
